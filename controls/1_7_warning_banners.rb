@@ -74,22 +74,41 @@ control 'cis-dil-benchmark-1.7.1.4' do
   tag cis: 'distribution-independent-linux:1.7.1.4'
   tag level: 1
 
-  describe file('/etc/motd') do
-    it { should exist }
-    it { should be_readable.by 'owner' }
-    it { should be_writable.by 'owner' }
-    it { should_not be_executable.by 'owner' }
-    it { should be_readable.by 'group' }
-    it { should_not be_writable.by 'group' }
-    it { should_not be_executable.by 'group' }
-    it { should be_readable.by 'other' }
-    it { should_not be_writable.by 'other' }
-    it { should_not be_executable.by 'other' }
-    its(:uid) { should cmp 0 }
-    its(:gid) { should cmp 0 }
-    its(:sticky) { should equal false }
-    its(:suid) { should equal false }
-    its(:sgid) { should equal false }
+  if file('/etc/motd').exist?
+    describe file('/etc/motd') do
+      it { should be_readable.by 'owner' }
+      it { should be_writable.by 'owner' }
+      it { should_not be_executable.by 'owner' }
+      it { should be_readable.by 'group' }
+      it { should_not be_writable.by 'group' }
+      it { should_not be_executable.by 'group' }
+      it { should be_readable.by 'other' }
+      it { should_not be_writable.by 'other' }
+      it { should_not be_executable.by 'other' }
+      its(:uid) { should cmp 0 }
+      its(:gid) { should cmp 0 }
+      its(:sticky) { should equal false }
+      its(:suid) { should equal false }
+      its(:sgid) { should equal false }
+    end
+  end
+
+  command('find -O3 /etc/update-motd.d -type f -perm /111').stdout.each_line do |fname|
+    describe file(fname.strip) do
+      it { should be_readable.by 'owner' }
+      it { should be_executable.by 'owner' }
+      it { should be_readable.by 'group' }
+      it { should_not be_writable.by 'group' }
+      it { should be_executable.by 'group' }
+      it { should be_readable.by 'other' }
+      it { should_not be_writable.by 'other' }
+      it { should be_executable.by 'other' }
+      its(:uid) { should cmp 0 }
+      its(:gid) { should cmp 0 }
+      its(:sticky) { should equal false }
+      its(:suid) { should equal false }
+      its(:sgid) { should equal false }
+    end
   end
 end
 
