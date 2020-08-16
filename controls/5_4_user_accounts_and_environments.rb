@@ -161,14 +161,14 @@ control 'cis-dil-benchmark-5.4.4' do
   tag cis: 'distribution-independent-linux:5.4.4'
   tag level: 1
 
-  %w(bash.bashrc profile bashrc).each do |f|
+  %w(bash.bashrc bash.bashrc.local profile.local profile bashrc).each do |f|
     describe file("/etc/#{f}") do
       its(:content) { should_not match(/^\s*umask [0124]?[01234567](0[7654321]|[7654321][654321])\s*(?:#.*)?$/) }
     end
   end
 
   describe.one do
-    %w(bash.bashrc profile bashrc).each do |f|
+    %w(bash.bashrc bash.bashrc.local profile.local profile bashrc).each do |f|
       next unless file("/etc/#{f}").file?
 
       describe file("/etc/#{f}") do
