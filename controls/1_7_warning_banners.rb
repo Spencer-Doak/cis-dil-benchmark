@@ -28,6 +28,16 @@ control 'cis-dil-benchmark-1.7.1.1' do
   describe file('/etc/motd') do
     its(:content) { should_not match(/(\\v|\\r|\\m|\\s)/) }
   end
+
+  if file('/run/motd.dynamic').exist?
+    describe file('/run/motd.dynamic') do
+      its(:content) { should_not match(/(\\v|\\r|\\m|\\s)/) }
+    end
+  elsif directory('/etc/update-motd.d').directory?
+    describe command('/usr/bin/env -i PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin run-parts --lsbsysinit /etc/update-motd.d') do
+      its(:stdout) { should_not match(/(\\v|\\r|\\m|\\s)/) }
+    end
+  end
 end
 
 control 'cis-dil-benchmark-1.7.1.2' do
