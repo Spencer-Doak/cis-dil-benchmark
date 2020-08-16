@@ -276,7 +276,7 @@ control 'cis-dil-benchmark-6.1.10' do
   tag cis: 'distribution-independent-linux:6.1.10'
   tag level: 1
 
-  describe command("df --local -P | awk '{ if (NR!=1) print $6 }' | xargs -I '{}' find '{}' -xdev -type f -perm -0002") do
+  describe command("df --local -P | awk '{ if (NR!=1) print $6 }' | xargs -I '{}' find -O3 '{}' -xdev -type f -perm -0002") do
     its(:stdout) { should eq '' }
   end
 end
@@ -289,7 +289,7 @@ control 'cis-dil-benchmark-6.1.11' do
   tag cis: 'distribution-independent-linux:6.1.11'
   tag level: 1
 
-  describe command("df --local -P | awk '{ if (NR!=1) print $6 }' | xargs -I '{}' find '{}' -xdev -nouser") do
+  describe command("df --local -P | awk '{ if (NR!=1) print $6 }' | xargs -I '{}' find -O3 '{}' -xdev -nouser") do
     its(:stdout) { should eq '' }
   end
 end
@@ -302,7 +302,7 @@ control 'cis-dil-benchmark-6.1.12' do
   tag cis: 'distribution-independent-linux:6.1.12'
   tag level: 1
 
-  describe command("df --local -P | awk '{ if (NR!=1) print $6 }' | xargs -I '{}' find '{}' -xdev -nogroup") do
+  describe command("df --local -P | awk '{ if (NR!=1) print $6 }' | xargs -I '{}' find -O3 '{}' -xdev -nogroup") do
     its(:stdout) { should eq '' }
   end
 end
