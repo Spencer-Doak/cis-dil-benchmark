@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Expand Compatibility for Alternative Linux Distros [\#3](https://github.com/Spencer-Doak/cis-dil-benchmark/pull/3) ([Spencer-Doak](https://github.com/Spencer-Doak))
 - Updates from Source Repository [\#2](https://github.com/Spencer-Doak/cis-dil-benchmark/pull/2) ([Spencer-Doak](https://github.com/Spencer-Doak))
 - Fix Control 6.1.3 to allow more restrictive perms [\#1](https://github.com/Spencer-Doak/cis-dil-benchmark/pull/1) ([Spencer-Doak](https://github.com/Spencer-Doak))
 
